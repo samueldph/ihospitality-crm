@@ -9,7 +9,7 @@ export default async function AccountsPage() {
       <table>
         <thead><tr><th>Account #</th><th>Name</th><th>Type</th><th>Email</th><th>Phone</th></tr></thead>
         <tbody>{accounts.map((a) => (
-          <tr key={a.id}><td>{a.accountNumber}</td><td>{a.name}</td><td>{a.kind}</td><td>{a.email ?? '—'}</td><td>{a.phone ?? '—'}</td></tr>
+          <tr key={a.id}><td>{a.accountNumber}</td><td><Link href={'/accounts/' + a.id}>{a.name}</Link></td><td>{a.kind}</td><td>{a.email ?? '—'}</td><td>{a.phone ?? '—'}</td></tr>
         ))}</tbody>
       </table>
     )}
