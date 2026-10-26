@@ -2,8 +2,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { signOut } from 'next-auth/react';
-const links = [{ href: '/', label: 'Dashboard' }, { href: '/accounts', label: 'Accounts' }];
-const soon = ['Work orders', 'Invoices', 'Payments', 'Inventory'];
+const links = [{ href: '/', label: 'Dashboard' }, { href: '/accounts', label: 'Accounts' }, { href: '/work-orders', label: 'Work orders' }, { href: '/invoices', label: 'Invoices' }];
+const soon = ['Payments', 'Inventory'];
 export function Nav() {
   const path = usePathname();
   const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
