@@ -1,0 +1,53 @@
+:root{--bg:#0b1020;--surface:#121a2e;--surface-2:#1a243d;--border:#243049;--text:#e7ecf5;--muted:#9aa7bd;--brand:#2563eb;--brand-2:#38bdf8}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;line-height:1.5}
+a{color:var(--brand-2)}
+.brand{display:flex;align-items:center;gap:12px;padding:12px 20px;background:linear-gradient(90deg,#0d1427,#0b1020);border-bottom:1px solid var(--border)}
+.brand__logo{display:block}
+.brand__pill{margin-left:auto;font-size:12px;color:#0b1020;font-weight:600;background:#fff;border-radius:999px;padding:4px 10px;box-shadow:0 1px 3px rgba(0,0,0,.4)}
+.container{max-width:1040px;margin:0 auto;padding:24px 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 20px}
+.card h3{margin:0 0 6px;font-size:13px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.card .kpi{font-size:30px;font-weight:700}
+.btn{display:inline-block;background:var(--brand);color:#fff;border:0;border-radius:10px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none}
+.btn:hover{background:#1d4ed8}
+.input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--surface-2);color:var(--text)}
+.auth{max-width:360px;margin:8vh auto}
+label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
+h1{font-size:22px}.muted{color:var(--muted)}
+.shell{display:flex;align-items:flex-start}
+.main{flex:1;min-width:0;padding:24px 28px}
+.nav{width:210px;flex:0 0 210px;padding:16px 12px;border-right:1px solid var(--border);min-height:calc(100vh - 55px)}
+.nav a{display:block;padding:9px 12px;border-radius:8px;color:var(--text);text-decoration:none;font-size:14px;margin-bottom:2px}
+.nav a:hover{background:var(--surface)}
+.nav a.active{background:var(--surface);color:var(--brand-2)}
+.nav__section{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:14px 12px 6px}
+.nav__logout{margin-top:18px;width:100%;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:9px 12px;cursor:pointer;font-size:13px}
+.nav__logout:hover{color:var(--text);border-color:var(--muted)}
+table{width:100%;border-collapse:collapse;margin-top:16px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);font-size:14px}
+th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+tbody tr:hover td{background:var(--surface)}
+.rowsplit{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.field{margin-bottom:14px}.field label{margin:0 0 4px}
+select.input{appearance:auto}
+@media(max-width:640px){.nav{display:none}.main{padding:20px 16px}}
+.shell{display:flex;align-items:flex-start}
+.main{flex:1;min-width:0;padding:24px 28px}
+.nav{width:210px;flex:0 0 210px;padding:16px 12px;border-right:1px solid var(--border);min-height:calc(100vh - 55px)}
+.nav a{display:block;padding:9px 12px;border-radius:8px;color:var(--text);text-decoration:none;font-size:14px;margin-bottom:2px}
+.nav a:hover{background:var(--surface)}
+.nav a.active{background:var(--surface);color:var(--brand-2)}
+.nav__section{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:14px 12px 6px}
+.nav__logout{margin-top:18px;width:100%;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:9px 12px;cursor:pointer;font-size:13px}
+.nav__logout:hover{color:var(--text);border-color:var(--muted)}
+table{width:100%;border-collapse:collapse;margin-top:16px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);font-size:14px}
+th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+tbody tr:hover td{background:var(--surface)}
+.rowsplit{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.field{margin-bottom:14px}.field label{margin:0 0 4px}
+select.input{appearance:auto}
+@media(max-width:640px){.nav{display:none}.main{padding:20px 16px}}
+@media print { .brand, .nav, .noprint { display: none !important; } body { background: #fff !important; } .main, .container { padding: 0 !important; } .invoice-print { border-radius: 0 !important; } }

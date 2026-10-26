@@ -1,14 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 248 44" role="img" aria-label="IHospitality">
-  <defs>
-    <linearGradient id="ih" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#38bdf8"/>
-      <stop offset="1" stop-color="#2563eb"/>
-    </linearGradient>
-  </defs>
-  <rect x="2" y="2" width="40" height="40" rx="11" fill="url(#ih)"/>
-  <text x="22" y="31" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif"
-        font-size="22" font-weight="700" fill="#ffffff">iH</text>
-  <text x="54" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700" fill="currentColor">
-    <tspan fill="#2563eb">I</tspan>Hospitality
-  </text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="27 24 152 93" role="img" aria-label="iHospitality"><polygon points="44,27 69,27 64.8,51 39.8,51" fill="#196DD4"/><polygon points="39,59 64,59 54.55,113 29.55,113" fill="#196DD4"/><polygon points="81,27 107,27 102.8,51 76.8,51" fill="#FFFFFF"/><polygon points="152,27 177,27 172.8,51 147.8,51" fill="#FFFFFF"/><polygon points="76,59 102,59 92.55,113 66.55,113" fill="#FFFFFF"/><polygon points="146,59 172,59 162.55,113 136.55,113" fill="#FFFFFF"/><polygon points="76,59 172,59 167.8,83 71.8,83" fill="#FFFFFF"/></svg>

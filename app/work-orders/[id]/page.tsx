@@ -3,10 +3,14 @@ import { notFound } from 'next/navigation';
 import { prisma } from '@/server/db';
 import { formatCents } from '@/lib/money';
 import { updateWorkOrderStatus } from '@/server/actions/workorders';
+import { consumeInventory } from '@/server/actions/materials';
 export const dynamic = 'force-dynamic';
 const STATUSES = ['DRAFT', 'SCHEDULED', 'DISPATCHED', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED'];
 export default async function WorkOrderDetail({ params }: { params: { id: string } }) {
-  const w = await prisma.workOrder.findUnique({ where: { id: params.id }, include: { account: true, jobType: true, technician: true, serviceAddress: true, invoices: true } });
+  const [w, inventory] = await Promise.all([
+    prisma.workOrder.findUnique({ where: { id: params.id }, include: { account: true, jobType: true, technician: true, serviceAddress: true, invoices: true, items: { include: { inventoryItem: true } } } }),
+    prisma.inventoryItem.findMany({ where: { deletedAt: null }, orderBy: { name: 'asc' }, select: { id: true, name: true, sku: true, quantity: true } }),
+  ]);
   if (!w) notFound();
   const invoiceHref = '/invoices/new?account=' + w.accountId + '&wo=' + w.id + '&desc=' + encodeURIComponent(w.jobType.name + ' — ' + w.orderNumber);
   return (<>
@@ -23,6 +27,20 @@ export default async function WorkOrderDetail({ params }: { params: { id: string
       <div style={{ flex: 1 }}><label>Update status</label><select name="status" className="input" defaultValue={w.status}>{STATUSES.map((s) => (<option key={s} value={s}>{s}</option>))}</select></div>
       <button className="btn" type="submit">Save</button>
     </form>
+    <div style={{ marginTop: 24 }}>
+      <h2 style={{ fontSize: 16 }}>Materials used</h2>
+      {w.items.length === 0 ? <p className="muted">None recorded.</p> : (
+        <table><thead><tr><th>Item</th><th>SKU</th><th>Qty</th></tr></thead><tbody>{w.items.map((m) => (<tr key={m.id}><td>{m.inventoryItem.name}</td><td>{m.inventoryItem.sku}</td><td>{m.quantity}</td></tr>))}</tbody></table>
+      )}
+      {inventory.length > 0 && (
+        <form action={consumeInventory} style={{ display: 'flex', gap: 8, alignItems: 'flex-end', marginTop: 10, maxWidth: 480 }}>
+          <input type="hidden" name="workOrderId" value={w.id} />
+          <div style={{ flex: 1 }}><label>Item</label><select name="inventoryItemId" className="input">{inventory.map((it) => (<option key={it.id} value={it.id}>{it.name} ({it.quantity} in stock)</option>))}</select></div>
+          <div style={{ width: 80 }}><label>Qty</label><input name="quantity" className="input" defaultValue="1" /></div>
+          <button className="btn" type="submit">Use</button>
+        </form>
+      )}
+    </div>
     <div style={{ marginTop: 24 }}>
       <div className="rowsplit"><h2 style={{ fontSize: 16 }}>Invoices</h2><Link className="btn" href={invoiceHref}>+ Create invoice from this job</Link></div>
       {w.invoices.length === 0 ? <p className="muted">No invoices for this job yet.</p> : (

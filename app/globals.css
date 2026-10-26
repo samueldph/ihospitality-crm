@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap');
 :root{--bg:#0b1020;--surface:#121a2e;--surface-2:#1a243d;--border:#243049;--text:#e7ecf5;--muted:#9aa7bd;--brand:#2563eb;--brand-2:#38bdf8}
 *{box-sizing:border-box}html,body{margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;line-height:1.5}
@@ -50,3 +51,20 @@ tbody tr:hover td{background:var(--surface)}
 .field{margin-bottom:14px}.field label{margin:0 0 4px}
 select.input{appearance:auto}
 @media(max-width:640px){.nav{display:none}.main{padding:20px 16px}}
+@media print { .brand, .nav, .noprint { display: none !important; } body { background: #fff !important; } .main, .container { padding: 0 !important; } .invoice-print { border-radius: 0 !important; } }
+
+/* ===== IHospitality brand (Celtic Blue + Poppins) ===== */
+:root{
+  --brand:#196DD4;      /* Celtic Blue */
+  --brand-2:#4a9be6;
+  --brand-ink:#1A1A1A;  /* Eerie Black */
+  --smoke:#F2F2F2;      /* White Smoke */
+}
+body{ font-family:"Poppins","Segoe UI",system-ui,-apple-system,Arial,sans-serif; }
+.btn:hover{ background:#1458ab; }
+.brand__logo{ height:30px; width:auto; }
+.brand__word{
+  font-family:"Poppins",system-ui,sans-serif;
+  font-weight:900; font-size:20px; letter-spacing:.005em;
+  color:#fff; line-height:1; margin-left:-2px;
+}

@@ -12,7 +12,7 @@ export default async function InvoiceDetail({ params }: { params: { id: string }
   const paid = inv.allocations.reduce((s, a) => s + a.amountCents, 0n);
   const balance = inv.totalCents - credits - paid;
   return (<>
-    <div className="rowsplit"><h1>{inv.invoiceNumber}</h1><Link className="muted" href="/invoices">← Back</Link></div>
+    <div className="rowsplit"><h1>{inv.invoiceNumber}</h1><a className="muted" target="_blank" href={`/invoices/${inv.id}/print`} style={{marginRight:12}}>Print / PDF</a><a className="muted" target="_blank" href={`/invoices/${inv.id}/print`} style={{marginRight:12}}>Print / PDF</a><a className="muted" target="_blank" href={`/invoices/${inv.id}/print`} style={{marginRight:12}}>Print / PDF</a><a className="muted" target="_blank" href={`/invoices/${inv.id}/print`} style={{marginRight:12}}>Print / PDF</a><a className="muted" target="_blank" href={`/invoices/${inv.id}/print`} style={{marginRight:12}}>Print / PDF</a><Link className="muted" href="/invoices">← Back</Link></div>
     <p className="muted">{inv.account.name} · <b>{inv.status}</b>{inv.issuedAt ? ' · issued ' + new Date(inv.issuedAt).toLocaleDateString() : ''}</p>
     <table>
       <thead><tr><th>Description</th><th>Qty</th><th>Unit</th><th>Tax</th><th>Line total</th></tr></thead>

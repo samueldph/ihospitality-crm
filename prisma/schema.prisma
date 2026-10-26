@@ -224,6 +224,7 @@ model WorkOrder {
   invoices         Invoice[]
   @@index([accountId, status])
   @@index([technicianId, scheduledAt])
+  items            WorkOrderItem[]
   @@map("work_orders")
 }
 
@@ -374,6 +375,7 @@ model InventoryItem {
   createdAt     DateTime        @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt     DateTime        @updatedAt @map("updated_at") @db.Timestamptz(6)
   deletedAt     DateTime?       @map("deleted_at") @db.Timestamptz(6)
+  usedOn        WorkOrderItem[]
   @@map("inventory_items")
 }
 
@@ -407,4 +409,16 @@ model AuditEvent {
   @@index([entityType, entityId, createdAt])
   @@index([actorId, createdAt])
   @@map("audit_events")
+}
+
+model WorkOrderItem {
+  id              String        @id @default(uuid()) @db.Uuid
+  workOrderId     String        @map("work_order_id") @db.Uuid
+  inventoryItemId String        @map("inventory_item_id") @db.Uuid
+  quantity        Int
+  createdAt       DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  workOrder       WorkOrder     @relation(fields: [workOrderId], references: [id], onDelete: Restrict)
+  inventoryItem   InventoryItem @relation(fields: [inventoryItemId], references: [id], onDelete: Restrict)
+  @@index([workOrderId])
+  @@map("work_order_items")
 }
