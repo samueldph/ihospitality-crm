@@ -68,3 +68,20 @@ body{ font-family:"Poppins","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
   font-weight:900; font-size:20px; letter-spacing:.005em;
   color:#fff; line-height:1; margin-left:-2px;
 }
+
+/* ===== nav2 grouped menu ===== */
+.nav2 { display:flex; flex-wrap:wrap; align-items:center; gap:4px; padding:8px 20px; background:#0d1427; border-bottom:1px solid var(--border); position:relative; z-index:20; }
+.nav2__link, .nav2__summary { display:inline-flex; align-items:center; gap:7px; padding:8px 12px; border-radius:8px; color:var(--text); text-decoration:none; font-size:14px; font-weight:600; cursor:pointer; list-style:none; white-space:nowrap; }
+.nav2__link:hover, .nav2__summary:hover { background:var(--surface-2); }
+.nav2__link.is-active, .nav2__summary.is-active { background:var(--brand); color:#fff; }
+.nav2__summary::-webkit-details-marker { display:none; }
+.nav2__summary::after { content:''; width:0; height:0; border-left:4px solid transparent; border-right:4px solid transparent; border-top:5px solid currentColor; opacity:.7; transition:transform .15s; }
+details.nav2__menu { position:relative; }
+details.nav2__menu[open] > .nav2__summary::after { transform:rotate(180deg); }
+.nav2__dropdown { position:absolute; top:100%; left:0; margin-top:4px; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:6px; min-width:210px; display:flex; flex-direction:column; gap:2px; box-shadow:0 10px 28px rgba(0,0,0,.45); z-index:30; }
+.nav2__item { display:block; padding:8px 10px; border-radius:7px; color:var(--text); text-decoration:none; font-size:14px; white-space:nowrap; }
+.nav2__item:hover { background:var(--surface-2); }
+.nav2__item.is-active { background:var(--brand); color:#fff; }
+.nav2__signout { margin-left:auto; background:transparent; border:1px solid var(--border); color:var(--muted); padding:8px 12px; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; }
+.nav2__signout:hover { color:var(--text); border-color:var(--muted); }
+@media (max-width:640px){ .nav2{ padding:8px 12px; } .nav2__signout{ margin-left:0; } }
