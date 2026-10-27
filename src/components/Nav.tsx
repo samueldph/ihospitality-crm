@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { signOut } from 'next-auth/react';
+import { useEffect, useRef, useState } from 'react';
 
 type Item = { href: string; label: string };
 
@@ -12,7 +13,12 @@ const PRIMARY: Item[] = [
 const JOBS: Item[] = [
   { href: '/work-orders', label: 'Work orders' },
   { href: '/dispatch', label: 'Dispatch' },
+  { href: '/calendar', label: 'Calendar' },
+];
+const INVENTORY: Item[] = [
   { href: '/inventory', label: 'Inventory' },
+  { href: '/scan', label: 'Scan stock' },
+  { href: '/inventory/labels', label: 'QR labels' },
 ];
 const BILLING: Item[] = [
   { href: '/invoices', label: 'Invoices' },
@@ -26,31 +32,75 @@ function isActive(path: string, href: string) {
   return href === '/' ? path === '/' : path === href || path.startsWith(href + '/');
 }
 
-function Menu({ label, items, path }: { label: string; items: Item[]; path: string }) {
+function Menu({ id, label, items, path, open, setOpen }: {
+  id: string; label: string; items: Item[]; path: string;
+  open: string | null; setOpen: (v: string | null) => void;
+}) {
   const on = items.some((i) => isActive(path, i.href));
+  const isOpen = open === id;
   return (
-    <details className="nav2__menu">
-      <summary className={'nav2__summary' + (on ? ' is-active' : '')}>{label}</summary>
-      <div className="nav2__dropdown">
-        {items.map((i) => (
-          <Link key={i.href} href={i.href} className={'nav2__item' + (isActive(path, i.href) ? ' is-active' : '')}>{i.label}</Link>
-        ))}
-      </div>
-    </details>
+    <div className="nav2__menu">
+      <button
+        type="button"
+        aria-expanded={isOpen}
+        className={'nav2__summary' + (on ? ' is-active' : '') + (isOpen ? ' is-open' : '')}
+        onClick={(e) => { e.stopPropagation(); setOpen(isOpen ? null : id); }}
+      >
+        {label}
+      </button>
+      {isOpen && (
+        <div className="nav2__dropdown">
+          {items.map((i) => (
+            <Link key={i.href} href={i.href} onClick={() => setOpen(null)} className={'nav2__item' + (isActive(path, i.href) ? ' is-active' : '')}>{i.label}</Link>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
 export function Nav() {
   const path = usePathname() || '/';
+  const [open, setOpen] = useState<string | null>(null);
+  const [theme, setTheme] = useState<string>('dark');
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    function onDoc(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(null);
+    }
+    document.addEventListener('click', onDoc);
+    return () => document.removeEventListener('click', onDoc);
+  }, []);
+
+  useEffect(() => { setOpen(null); }, [path]);
+
+  useEffect(() => {
+    try { setTheme(document.documentElement.dataset.theme || 'dark'); } catch (e) { /* noop */ }
+  }, []);
+
+  function toggleTheme() {
+    const next = theme === 'light' ? 'dark' : 'light';
+    try {
+      document.documentElement.dataset.theme = next;
+      localStorage.setItem('theme', next);
+    } catch (e) { /* noop */ }
+    setTheme(next);
+  }
+
   return (
-    <nav className="nav2">
+    <nav className="nav2" ref={ref}>
       {PRIMARY.map((i) => (
-        <Link key={i.href} href={i.href} className={'nav2__link' + (isActive(path, i.href) ? ' is-active' : '')}>{i.label}</Link>
+        <Link key={i.href} href={i.href} onClick={() => setOpen(null)} className={'nav2__link' + (isActive(path, i.href) ? ' is-active' : '')}>{i.label}</Link>
       ))}
-      <Menu label="Jobs" items={JOBS} path={path} />
-      <Menu label="Billing" items={BILLING} path={path} />
-      <Menu label="Reports" items={REPORTS} path={path} />
-      <Link href="/settings" className={'nav2__link' + (isActive(path, '/settings') ? ' is-active' : '')}>Settings</Link>
+      <Menu id="jobs" label="Jobs" items={JOBS} path={path} open={open} setOpen={setOpen} />
+      <Menu id="inventory" label="Inventory" items={INVENTORY} path={path} open={open} setOpen={setOpen} />
+      <Menu id="billing" label="Billing" items={BILLING} path={path} open={open} setOpen={setOpen} />
+      <Menu id="reports" label="Reports" items={REPORTS} path={path} open={open} setOpen={setOpen} />
+      <Link href="/settings" onClick={() => setOpen(null)} className={'nav2__link' + (isActive(path, '/settings') ? ' is-active' : '')}>Settings</Link>
+      <button type="button" className="nav2__theme" onClick={toggleTheme} aria-label="Toggle light or dark theme">
+        {theme === 'light' ? 'Dark mode' : 'Light mode'}
+      </button>
       <button type="button" className="nav2__signout" onClick={() => signOut({ callbackUrl: '/login' })}>Sign out</button>
     </nav>
   );

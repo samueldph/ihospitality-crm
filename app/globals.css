@@ -85,3 +85,36 @@ details.nav2__menu[open] > .nav2__summary::after { transform:rotate(180deg); }
 .nav2__signout { margin-left:auto; background:transparent; border:1px solid var(--border); color:var(--muted); padding:8px 12px; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; }
 .nav2__signout:hover { color:var(--text); border-color:var(--muted); }
 @media (max-width:640px){ .nav2{ padding:8px 12px; } .nav2__signout{ margin-left:0; } }
+
+/* nav2 dropdown fix */
+.nav2__menu{position:relative}
+.nav2__summary{user-select:none}
+.nav2__summary.is-open::after{transform:rotate(180deg)}
+
+/* nav2 button reset */
+.nav2__summary{background:transparent;border:0;font-family:inherit}
+
+/* ===== light theme ===== */
+:root[data-theme="light"]{
+  --bg:#f4f6fa; --surface:#ffffff; --surface-2:#eef1f6; --border:#dce2ec;
+  --text:#1a1a1a; --muted:#5b6678; --brand:#196dd4; --brand-2:#1458ab;
+}
+.brand__logo--light{ display:none; }
+:root[data-theme="light"] .brand{ background:#ffffff; }
+:root[data-theme="light"] .brand__word{ color:#1a1a1a; }
+:root[data-theme="light"] .brand__pill{ color:#fff; background:#196dd4; box-shadow:none; }
+:root[data-theme="light"] .brand__logo--dark{ display:none; }
+:root[data-theme="light"] .brand__logo--light{ display:inline-block; }
+:root[data-theme="light"] .nav2{ background:#ffffff; }
+.nav2__theme{ margin-left:auto; background:transparent; border:1px solid var(--border); color:var(--muted); padding:8px 12px; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; font-family:inherit; }
+.nav2__theme:hover{ color:var(--text); border-color:var(--muted); }
+.nav2__theme + .nav2__signout{ margin-left:8px; }
+
+/* ===== qr labels ===== */
+.qrlabels{ display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:10px; }
+.qrlabel{ border:1px solid #d9d9d9; border-radius:8px; padding:10px; text-align:center; background:#fff; color:#111; break-inside:avoid; }
+.qrlabel__code{ display:flex; justify-content:center; }
+.qrlabel__code img, .qrlabel__code canvas{ width:120px !important; height:120px !important; }
+.qrlabel__name{ font-weight:600; font-size:13px; margin-top:6px; color:#111; }
+.qrlabel__sku{ font-size:12px; color:#555; font-family:monospace; }
+@media print { .noprint{ display:none !important; } .qrlabels{ grid-template-columns:repeat(3,1fr); } body{ background:#fff !important; } }

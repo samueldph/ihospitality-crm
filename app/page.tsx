@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { prisma } from '@/server/db';
+import { ScheduleCalendar } from '@/components/ScheduleCalendar';
 import { formatCents } from '@/lib/money';
 export const dynamic = 'force-dynamic';
 async function getData() {
@@ -20,7 +21,8 @@ async function getData() {
 }
 export default async function Dashboard() {
   const d = await getData();
-  if (!d.ok) return (<><h1>Dashboard</h1><p className="muted">Database not reachable yet — reload in a moment.</p></>);
+  if (!d.ok) return (<><h1>Dashboard</h1>
+      <ScheduleCalendar /><p className="muted">Database not reachable yet — reload in a moment.</p></>);
   return (<>
     <h1>Dashboard</h1>
     <div className="grid">

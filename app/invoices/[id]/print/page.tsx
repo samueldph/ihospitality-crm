@@ -14,7 +14,7 @@ export default async function InvoicePrint({ params }: { params: { id: string } 
   return (
     <div className="invoice-print" style={{ maxWidth: 760, margin: '0 auto', background: '#fff', color: '#111', padding: '28px 32px', borderRadius: 12 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 28 }}>
-        <div><img src="/logo.svg" alt="IHospitality" height={34} /></div>
+        <div><img src="/logo-stationery.svg" alt="IHospitality" height={34} /></div>
         <div style={{ textAlign: 'right' }}><div style={{ fontSize: 24, fontWeight: 700 }}>INVOICE</div><div style={{ color: '#666' }}>{inv.invoiceNumber}</div><div style={{ color: '#666', fontSize: 13 }}>{inv.status}{inv.issuedAt ? ' · ' + new Date(inv.issuedAt).toLocaleDateString() : ''}</div></div>
       </div>
       <div style={{ marginBottom: 18 }}><div style={{ color: '#888', fontSize: 11, textTransform: 'uppercase', letterSpacing: '.05em' }}>Bill to</div><div style={{ fontWeight: 600 }}>{inv.account.name}</div><div style={{ color: '#666', fontSize: 13 }}>{inv.account.accountNumber}{inv.account.email ? ' · ' + inv.account.email : ''}</div></div>
